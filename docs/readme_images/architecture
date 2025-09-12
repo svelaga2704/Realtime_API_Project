@@ -1,0 +1,1 @@
+Weather API → Kinesis (optional) → Lambda → S3 → Glue Crawler → Athena → Step Functions → CloudWatch

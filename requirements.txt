@@ -1,0 +1,14 @@
+## 
+boto3==1.34.0
+requests==2.31.0
+python-dotenv==1.0.0
+
+Explanation:
+
+boto3 → AWS SDK for Python (used for Kinesis, S3, etc.).
+
+requests → Fetching weather data from the Weather API.
+
+python-dotenv → Loading environment variables from .env.
+
+pip install -r requirements.txt

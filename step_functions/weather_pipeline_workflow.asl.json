@@ -1,0 +1,40 @@
+{
+  "Comment": "Weather Data ETL Pipeline with Athena",
+  "StartAt": "FetchWeatherData",
+  "States": {
+    "FetchWeatherData": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "etl-weather-transform",
+        "Payload": {}
+      },
+      "Next": "RunGlueCrawler"
+    },
+    "RunGlueCrawler": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::aws-sdk:glue:startCrawler",
+      "Parameters": {
+        "Name": "weather-data-crawler"
+      },
+      "Next": "RunAthenaQuery"
+    },
+    "RunAthenaQuery": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::athena:startQueryExecution.sync",
+      "Parameters": {
+        "QueryString": "SELECT location, timestamp, data.current.temp_c, data.current.humidity, data.current.condition.text FROM weather_db.weather_data_jsonraw LIMIT 10;",
+        "QueryExecutionContext": {
+          "Database": "weather_db"
+        },
+        "ResultConfiguration": {
+          "OutputLocation": "s3://praneeth-weather-data/athena-results/"
+        }
+      },
+      "Next": "SuccessState"
+    },
+    "SuccessState": {
+      "Type": "Succeed"
+    }
+  }
+}
