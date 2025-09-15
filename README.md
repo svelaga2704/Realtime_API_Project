@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 ## 🌦️ Real-Time Weather Data Pipeline with AWS
 
 This project demonstrates a real-time ETL pipeline using AWS services.
@@ -216,4 +216,3 @@ Athena queries the catalog → results saved back to S3.
 Step Functions orchestrates the order: Lambda → Crawler → Athena → Success.
 =======
 
->>>>>>> f9e731430d457dce969f7ee446466f070d235c38
